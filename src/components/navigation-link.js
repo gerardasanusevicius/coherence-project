@@ -8,7 +8,7 @@ const NavigationLink = styled(NavLink)(({ theme }) => ({
   color: theme.palette.primary.main,
   textDecoration: 'none',
   alignSelf: 'stretch',
-  marginRight: '4rem',
+  margin: '2rem',
   fontSize: '0.825rem',
   textTransform: 'uppercase',
   letterSpacing: '0.1rem',
