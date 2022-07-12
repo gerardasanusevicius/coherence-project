@@ -1,4 +1,4 @@
-export const pageTop = '10rem';
+export const pageTop = '6rem';
 
 export const pageBottom = '4rem';
 
