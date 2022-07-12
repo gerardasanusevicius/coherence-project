@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const NavigationLink = styled(NavLink)(({ theme }) => ({
   display: 'flex',
+  justifyContent: 'space-around',
   alignItems: 'center',
   color: theme.palette.primary.main,
   textDecoration: 'none',

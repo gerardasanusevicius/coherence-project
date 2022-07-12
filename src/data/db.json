@@ -1,0 +1,92 @@
+{
+    "users": [
+    {
+      "firstName": "Jonas",
+      "lastName": "Brazauskas",
+      "password": "JonBraz!12",
+      "email": "jonbraz@example.com",
+      "age": 54,
+      "gender": "male",
+      "proficiency": "",
+      "occupationField": "",
+      "occupation": "",
+      "id": 1
+    },
+    {
+      "firstName": "Tomas",
+      "lastName": "Petrauskas",
+      "password": "TomPetr!12",
+      "email": "tompetr@example.com",
+      "age": 28,
+      "gender": "male",
+      "proficiency": "",
+      "occupationField": "",
+      "occupation": "",
+      "id": 2
+    },
+    {
+      "firstName": "Joana",
+      "lastName": "Gervytė",
+      "password": "JoaGerv!12",
+      "email": "joagerv@example.com",
+      "age": 46,
+      "gender": "female",
+      "proficiency": "",
+      "occupationField": "",
+      "occupation": "",
+      "id": 3
+    },
+    {
+      "firstName": "Simas",
+      "lastName": "Bitėnas",
+      "password": "SimBit!12",
+      "email": "simbit@example.com",
+      "age": 22,
+      "gender": "other",
+      "proficiency": "",
+      "occupationField": "",
+      "occupation": "",
+      "id": 4
+    }
+  ],
+     "proficiency": [
+    {
+        "title": "Professional",
+        "occupationType": [
+            {
+                "title": "Sports",
+                "occupation": [
+                    {
+                        "title": "Basketball Player",
+                        "id": 1
+                    },
+                    {
+                        "title": "Football Player",
+                        "id": 2
+                    },
+                    {
+                        "title": "Boxing Fighter",
+                        "id": 3
+                    }
+                ],
+                "id": 1
+            },
+            {
+                "title": "IT",
+                "occupation": [
+                    {
+                        "title": "Front-End Developer",
+                        "id": 1
+                    },
+                    {
+                        "title": "Back-End Developer",
+                        "id": 2
+                    }
+                ],
+                "id": 2
+            }
+        ],
+        "id": 1
+    }
+  ]
+}

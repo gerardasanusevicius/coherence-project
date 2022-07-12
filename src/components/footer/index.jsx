@@ -9,10 +9,7 @@ const Footer = () => (
       borderTop: '2px solid black',
       boxShadow: 'none',
       maxWidth: '100%',
-      flexDirection: 'row',
-      justifyContent: {
-        md: 'space-between',
-      },
+      justifyContent: 'space-around',
       height: '4rem',
       display: 'flex',
       alignItems: 'center',
@@ -25,7 +22,7 @@ const Footer = () => (
       zIndex: 99,
     }}
   >
-    <NavigationLink to='/'>Home Page</NavigationLink>
+    <NavigationLink to='/' sx={{ mr: 0 }}>Home Page</NavigationLink>
   </Box>
 );
 
