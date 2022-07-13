@@ -109,6 +109,10 @@
     {
       "title": "Sports",
       "id": 3
+    },
+    {
+      "title": "Arts",
+      "id": 4
     }
   ],
   "specialisations": [
