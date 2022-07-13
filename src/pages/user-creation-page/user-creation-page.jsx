@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
 import {
@@ -8,8 +9,8 @@ import { useFormik, Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
 import { useNavigate } from 'react-router-dom';
-import { createUser } from '../services/user-service';
-import { getFields, getOccupations, getSpecialisations } from '../services/category-service';
+import { createUser } from '../../services/user-service';
+import { getFields, getOccupations, getSpecialisations } from '../../services/category-service';
 
 const validationSchema = Yup.object({
   firstName: Yup.string()
@@ -44,13 +45,13 @@ const validationSchema = Yup.object({
   gender: Yup.string()
     .required('Required field'),
 
-  field: Yup.string()
+  field: Yup.object()
     .required('Required field'),
 
-  specialisation: Yup.string()
+  specialisation: Yup.object()
     .required('Required field'),
 
-  occupation: Yup.string()
+  occupation: Yup.object()
     .required('Required field'),
 });
 
@@ -100,17 +101,25 @@ const UserCreationPage = () => {
     email: '',
     age: 0,
     gender: '',
-    field: null,
-    specialisation: null,
-    occupation: null,
+    field: '',
+    specialisation: '',
+    occupation: '',
   };
 
   const handleCreateUser = (firstName, lastName, password, email, age, gender, field, specialisation, occupation) => {
-    createUser(firstName, lastName, password, email, age, gender, field.title, specialisation.title, occupation.title);
+    createUser(firstName, lastName, password, email, age, gender, field, specialisation, occupation);
     navigate('/');
   };
 
-  const formik = useFormik({
+  const {
+    values,
+    touched,
+    errors,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
     initialValues,
     validationSchema,
     onSubmit: handleCreateUser,
@@ -145,77 +154,77 @@ const UserCreationPage = () => {
               flexDirection: 'column',
               gap: 10,
             }}
-            onSubmit={formik.handleSubmit}
+            onSubmit={handleSubmit}
           >
             <TextField
             name='firstName'
             type="text"
             label="First name"
-            value={formik.values.firstName}
+            value={values.firstName}
             fullWidth
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.firstName && Boolean(formik.errors.firstName)}
-            helperText={formik.touched.firstName && formik.errors.firstName ? formik.touched.firstName && formik.errors.firstName : null}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.firstName && Boolean(errors.firstName)}
+            helperText={touched.firstName && errors.firstName ? touched.firstName && errors.firstName : null}
             />
             <TextField
             name='lastName'
             type="text"
             label="Last name"
-            value={formik.values.lastName}
+            value={values.lastName}
             fullWidth
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-            helperText={formik.touched.lastName && formik.errors.lastName ? formik.touched.lastName && formik.errors.lastName : null}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.lastName && Boolean(errors.lastName)}
+            helperText={touched.lastName && errors.lastName ? touched.lastName && errors.lastName : null}
             />
             <TextField
             name='password'
             type="password"
             label="Password"
-            value={formik.values.password}
+            value={values.password}
             fullWidth
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password ? formik.touched.password && formik.errors.password : null}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.password && Boolean(errors.password)}
+            helperText={touched.password && errors.password ? touched.password && errors.password : null}
             />
             <TextField
             name='email'
             type="email"
             label="Email"
-            value={formik.values.email}
+            value={values.email}
             fullWidth
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email ? formik.touched.email && formik.errors.email : null}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.email && Boolean(errors.email)}
+            helperText={touched.email && errors.email ? touched.email && errors.email : null}
             />
             <TextField
             name='age'
             type="number"
             label="Age"
-            value={formik.values.age}
+            value={values.age}
             fullWidth
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.age && Boolean(formik.errors.age)}
-            helperText={formik.touched.age && formik.errors.age ? formik.touched.age && formik.errors.age : null}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.age && Boolean(errors.age)}
+            helperText={touched.age && errors.age ? touched.age && errors.age : null}
             />
             <FormControl required>
               <FormLabel>Gender</FormLabel>
               <RadioGroup row >
-                <FormControlLabel name='gender' value='male' control={<Radio />} label="Male" checked={formik.values.gender === 'male'} onChange={() => formik.setFieldValue('gender', 'male')} />
-                <FormControlLabel name='gender' value='female' control={<Radio />} label="Female" checked={formik.values.gender === 'female'} onChange={() => formik.setFieldValue('gender', 'female')} />
-                <FormControlLabel name='gender' value='other' control={<Radio />} label="Other" checked={formik.values.gender === 'other'} onChange={() => formik.setFieldValue('gender', 'other')} />
+                <FormControlLabel name='gender' value='male' control={<Radio />} label="Male" checked={values.gender === 'male'} onChange={() => setFieldValue('gender', 'male')} />
+                <FormControlLabel name='gender' value='female' control={<Radio />} label="Female" checked={values.gender === 'female'} onChange={() => setFieldValue('gender', 'female')} />
+                <FormControlLabel name='gender' value='other' control={<Radio />} label="Other" checked={values.gender === 'other'} onChange={() => setFieldValue('gender', 'other')} />
               </RadioGroup>
             </FormControl>
             <TextField
             select
             name='field'
             label="Select a field"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
+            onBlur={handleBlur}
+            onChange={handleChange}
             helperText="Please select a field"
             variant="outlined"
             defaultValue=""
@@ -228,30 +237,30 @@ const UserCreationPage = () => {
             select
             name='specialisation'
             label="Select a specialisation"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
+            onBlur={handleBlur}
+            onChange={handleChange}
             helperText="Please select a specialisation"
             variant="outlined"
             defaultValue=""
             >
              {
-              (formik.values.field)
-                ? specialisations.filter((specialisation) => specialisation.fieldId === formik.values.field.id).map((specialisation) => <MenuItem key={specialisation.id} value={specialisation}>{specialisation.title}</MenuItem>) : <MenuItem value="test" disabled>Please select a field first</MenuItem>
+              (values.field)
+                ? specialisations.filter((specialisation) => specialisation.fieldId === values.field.id).map((specialisation) => <MenuItem key={specialisation.id} value={specialisation}>{specialisation.title}</MenuItem>) : <MenuItem value={{}} disabled>Please select a field first</MenuItem>
               }
             </TextField>
             <TextField
             select
             name='occupation'
             label="Select an occupation"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
+            onBlur={handleBlur}
+            onChange={handleChange}
             helperText="Please select an occupation"
             variant="outlined"
             defaultValue=""
             >
               {
-                (formik.values.specialisation)
-                  ? occupations.filter((occupation) => occupation.specialisationId === formik.values.specialisation.id).map((occupation) => <MenuItem key={occupation.id} value={occupation}>{occupation.title}</MenuItem>) : <MenuItem value="test" disabled>Please select a specialisation first</MenuItem>
+                (values.specialisation)
+                  ? occupations.filter((occupation) => occupation.specialisationId === values.specialisation.id).map((occupation) => <MenuItem key={occupation.id} value={occupation}>{occupation.title}</MenuItem>) : <MenuItem value={{}} disabled>Please select a specialisation first</MenuItem>
               }
             </TextField>
             <Button type="submit" variant="outlined" sx={{

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,
 } from '@mui/material';
-import { getUsers } from '../services/user-service';
+import { getUsers } from '../../services/user-service';
 
 const HomePage = () => {
   const [users, setUsers] = useState([]);
@@ -22,7 +22,7 @@ const HomePage = () => {
     <>
     <Typography variant="h4" sx={{ textAlign: 'center' }}>List of all Users</Typography>
     <Container sx={{
-      width: '80%',
+      width: '100%',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -47,7 +47,6 @@ const HomePage = () => {
           {users.map((user) => (
             <TableRow
               key={user.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
                 {user

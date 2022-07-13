@@ -71,6 +71,30 @@
       "specialisation": "Cyber Security",
       "occupation": "Cyber Security Manager",
       "id": 6
+    },
+    {
+      "firstName": "Rytis",
+      "lastName": "Blinda",
+      "password": "RytBlin!12",
+      "email": "rytblind@example.com",
+      "age": 29,
+      "gender": "male",
+      "field": "Information Technology",
+      "specialisation": "Cyber Security",
+      "occupation": "Cyber Security Manager",
+      "id": 7
+    },
+    {
+      "firstName": "Karolis",
+      "lastName": "Drimba",
+      "password": "KarDrim!12",
+      "email": "kardrimb@example.com",
+      "age": 35,
+      "gender": "other",
+      "field": "Information Technology",
+      "specialisation": "Data Analytics",
+      "occupation": "Junior Data Analyst",
+      "id": 8
     }
   ],
   "fields": [

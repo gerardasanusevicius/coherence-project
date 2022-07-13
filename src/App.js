@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import MainLayout from './components/layouts/main-layout.jsx';
-import UserCreationPage from './pages/user-creation-page.jsx';
-import CategoryCreationPage from './pages/category-creation-page.jsx';
-import HomePage from './pages/home-page.jsx';
+import UserCreationPage from './pages/user-creation-page/user-creation-page.jsx';
+import CategoryCreationPage from './pages/category-creation-pages/category-creation-page.jsx';
+import HomePage from './pages/home-page/home-page.jsx';
 import './app.css';
 
 const App = () => (

@@ -14,9 +14,9 @@ const createUser = ({
   email,
   age,
   gender,
-  field,
-  specialisation,
-  occupation,
+  field: field.title,
+  specialisation: specialisation.title,
+  occupation: occupation.title,
 });
 
 export {
