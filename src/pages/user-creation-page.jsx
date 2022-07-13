@@ -100,13 +100,13 @@ const UserCreationPage = () => {
     email: '',
     age: 0,
     gender: '',
-    field: '',
-    specialisation: '',
-    occupation: '',
+    field: null,
+    specialisation: null,
+    occupation: null,
   };
 
   const handleCreateUser = (firstName, lastName, password, email, age, gender, field, specialisation, occupation) => {
-    createUser(firstName, lastName, password, email, age, gender, field, specialisation, occupation);
+    createUser(firstName, lastName, password, email, age, gender, field.title, specialisation.title, occupation.title);
     navigate('/');
   };
 
@@ -157,7 +157,6 @@ const UserCreationPage = () => {
             onBlur={formik.handleBlur}
             error={formik.touched.firstName && Boolean(formik.errors.firstName)}
             helperText={formik.touched.firstName && formik.errors.firstName ? formik.touched.firstName && formik.errors.firstName : null}
-            required
             />
             <TextField
             name='lastName'
@@ -169,7 +168,6 @@ const UserCreationPage = () => {
             onBlur={formik.handleBlur}
             error={formik.touched.lastName && Boolean(formik.errors.lastName)}
             helperText={formik.touched.lastName && formik.errors.lastName ? formik.touched.lastName && formik.errors.lastName : null}
-            required
             />
             <TextField
             name='password'
@@ -181,7 +179,6 @@ const UserCreationPage = () => {
             onBlur={formik.handleBlur}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password ? formik.touched.password && formik.errors.password : null}
-            required
             />
             <TextField
             name='email'
@@ -193,7 +190,6 @@ const UserCreationPage = () => {
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email ? formik.touched.email && formik.errors.email : null}
-            required
             />
             <TextField
             name='age'
@@ -205,7 +201,6 @@ const UserCreationPage = () => {
             onBlur={formik.handleBlur}
             error={formik.touched.age && Boolean(formik.errors.age)}
             helperText={formik.touched.age && formik.errors.age ? formik.touched.age && formik.errors.age : null}
-            required
             />
             <FormControl required>
               <FormLabel>Gender</FormLabel>
@@ -226,7 +221,7 @@ const UserCreationPage = () => {
             defaultValue=""
             >
               {
-                fields.map((field) => <MenuItem key={field.id} value={field.title}>{field.title}</MenuItem>)
+                fields.map((field) => <MenuItem key={field.id} value={field}>{field.title}</MenuItem>)
               }
             </TextField>
             <TextField
@@ -240,7 +235,8 @@ const UserCreationPage = () => {
             defaultValue=""
             >
              {
-             specialisations.map((specialisation) => <MenuItem key={specialisation.id} value={specialisation.title}>{specialisation.title}</MenuItem>)
+              (formik.values.field)
+                ? specialisations.filter((specialisation) => specialisation.fieldId === formik.values.field.id).map((specialisation) => <MenuItem key={specialisation.id} value={specialisation}>{specialisation.title}</MenuItem>) : <MenuItem value="test" disabled>Please select a field first</MenuItem>
               }
             </TextField>
             <TextField
@@ -254,7 +250,8 @@ const UserCreationPage = () => {
             defaultValue=""
             >
               {
-                occupations.map((occupation) => <MenuItem key={occupation.id} value={occupation.title}>{occupation.title}</MenuItem>)
+                (formik.values.specialisation)
+                  ? occupations.filter((occupation) => occupation.specialisationId === formik.values.specialisation.id).map((occupation) => <MenuItem key={occupation.id} value={occupation}>{occupation.title}</MenuItem>) : <MenuItem value="test" disabled>Please select a specialisation first</MenuItem>
               }
             </TextField>
             <Button type="submit" variant="outlined" sx={{
