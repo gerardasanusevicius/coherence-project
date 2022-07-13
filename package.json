@@ -26,6 +26,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
+    "server": "json-server -w ./src/data/db.json -p 8000",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

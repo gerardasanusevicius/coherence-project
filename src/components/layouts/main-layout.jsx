@@ -13,8 +13,7 @@ const MainLayout = () => (
       sx={{
         pt: pageTop,
         pb: pageBottom,
-        pl: pageSide,
-        pr: pageSide,
+        px: pageSide,
       }}
     >
       <Outlet />
