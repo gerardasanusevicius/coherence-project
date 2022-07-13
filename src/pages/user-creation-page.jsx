@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Typography, Container, Paper, TextField, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, MenuItem,
 } from '@mui/material';
@@ -8,6 +8,8 @@ import { useFormik, Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
 import { useNavigate } from 'react-router-dom';
+import { createUser } from '../services/user-service';
+import { getFields, getOccupations, getSpecialisations } from '../services/category-service';
 
 const validationSchema = Yup.object({
   firstName: Yup.string()
@@ -41,10 +43,55 @@ const validationSchema = Yup.object({
 
   gender: Yup.string()
     .required('Required field'),
+
+  field: Yup.string()
+    .required('Required field'),
+
+  specialisation: Yup.string()
+    .required('Required field'),
+
+  occupation: Yup.string()
+    .required('Required field'),
 });
 
 const UserCreationPage = () => {
+  const [fields, setFields] = useState([]);
+  const [specialisations, setSpecialisations] = useState([]);
+  const [occupations, setOccupations] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getFields().then(
+      (res) => {
+        setFields(res.data);
+      },
+      (error) => {
+        throw error;
+      },
+    );
+  }, []);
+
+  useEffect(() => {
+    getSpecialisations().then(
+      (res) => {
+        setSpecialisations(res.data);
+      },
+      (error) => {
+        throw error;
+      },
+    );
+  }, []);
+
+  useEffect(() => {
+    getOccupations().then(
+      (res) => {
+        setOccupations(res.data);
+      },
+      (error) => {
+        throw error;
+      },
+    );
+  }, []);
 
   const initialValues = {
     firstName: '',
@@ -53,13 +100,13 @@ const UserCreationPage = () => {
     email: '',
     age: 0,
     gender: '',
-    category: '',
-    subCategory: '',
-    subSubCategory: '',
+    field: '',
+    specialisation: '',
+    occupation: '',
   };
 
-  const handleCreateUser = () => {
-    alert('user created');
+  const handleCreateUser = (firstName, lastName, password, email, age, gender, field, specialisation, occupation) => {
+    createUser(firstName, lastName, password, email, age, gender, field, specialisation, occupation);
     navigate('/');
   };
 
@@ -170,36 +217,45 @@ const UserCreationPage = () => {
             </FormControl>
             <TextField
             select
-            name='category'
-            label="Select a category"
+            name='field'
+            label="Select a field"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            helperText="Please select a category"
+            helperText="Please select a field"
             variant="outlined"
+            defaultValue=""
             >
-              <MenuItem key="1" value="test" >Test</MenuItem>
+              {
+                fields.map((field) => <MenuItem key={field.id} value={field.title}>{field.title}</MenuItem>)
+              }
             </TextField>
             <TextField
             select
-            name='subcategory'
-            label="Select a subcategory"
+            name='specialisation'
+            label="Select a specialisation"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            helperText="Please select a subcategory"
+            helperText="Please select a specialisation"
             variant="outlined"
+            defaultValue=""
             >
-             <MenuItem key="1" value="test" >Test</MenuItem>
+             {
+             specialisations.map((specialisation) => <MenuItem key={specialisation.id} value={specialisation.title}>{specialisation.title}</MenuItem>)
+              }
             </TextField>
             <TextField
             select
-            name='subsubcategory'
-            label="Select a subsubcategory"
+            name='occupation'
+            label="Select an occupation"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            helperText="Please select a subsubcategory"
+            helperText="Please select an occupation"
             variant="outlined"
+            defaultValue=""
             >
-              <MenuItem key="1" value="test" >Test</MenuItem>
+              {
+                occupations.map((occupation) => <MenuItem key={occupation.id} value={occupation.title}>{occupation.title}</MenuItem>)
+              }
             </TextField>
             <Button type="submit" variant="outlined" sx={{
               ':hover': {

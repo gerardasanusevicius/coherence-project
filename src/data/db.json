@@ -1,5 +1,5 @@
 {
-    "users": [
+  "users": [
     {
       "firstName": "Jonas",
       "lastName": "Brazauskas",
@@ -47,114 +47,126 @@
       "specialisation": "Web Development",
       "occupation": "Front-End Developer",
       "id": 4
-    }
-  ],
-     "fields": [
-    {
-        "title": "Life Science",
-        "id": 1
     },
     {
-        "title": "Information Technology",
-        "id": 2
-    },
-    {
-        "title": "Sports",
-        "id": 3
+      "firstName": "Tadas",
+      "lastName": "Aršauskas",
+      "password": "TadArs!12",
+      "email": "tadars@example.com",
+      "age": 34,
+      "gender": "male",
+      "field": "Life Science",
+      "specialisation": "Endocrinology",
+      "occupation": "Laboratory Assistant",
+      "id": 5
     }
   ],
-    "specialisations": [
-        {
-            "title": "Endocrinology",
-            "fieldId": 1, 
-            "id": 1
-        },
-        {
-            "title": "Cardiology",
-            "fieldId": 1, 
-            "id": 2
-        },
-        {
-            "title": "Web Development",
-            "fieldId": 2, 
-            "id": 3
-        },
-        {
-            "title": "Cyber Security",
-            "fieldId": 2, 
-            "id": 4
-        },
-        {
-            "title": "Data Analytics",
-            "fieldId": 2, 
-            "id": 5
-        },
-        {
-            "title": "Boxing",
-            "fieldId": 3, 
-            "id": 6
-        },
-        {
-            "title": "Football",
-            "fieldId": 3, 
-            "id": 7
-        },
-        {
-            "title": "Basketball",
-            "fieldId": 3, 
-            "id": 8
-        }
-    ],
-    "occupations": [
-        {
-            "title": "Senior Endocrinologist",
-            "specialisationId": 1, 
-            "id": 1
-        },
-        {
-            "title": "Laboratory Assistant",
-            "specialisationId": 1, 
-            "id": 2
-        },
-        {
-            "title": "Heart Surgeon",
-            "specialisationId": 2, 
-            "id": 3
-        },
-        {
-            "title": "Front-End Developer",
-            "specialisationId": 3, 
-            "id": 4
-        },
-        {
-            "title": "Cyber Security Manager",
-            "specialisationId": 4, 
-            "id": 5
-        },
-        {
-            "title": "Junior Data Analyst",
-            "specialisationId": 5, 
-            "id": 6
-        },
-        {
-            "title": "Boxing Referee",
-            "specialisationId": 6, 
-            "id": 7
-        },
-        {
-            "title": "Football Player",
-            "specialisationId": 7, 
-            "id": 8
-        },
-        {
-            "title": "Basketball Player",
-            "specialisationId": 8, 
-            "id": 9
-        },
-        {
-            "title": "Basketball Coach",
-            "specialisationId": 8, 
-            "id": 10
-        }
-    ]
+  "fields": [
+    {
+      "title": "Life Science",
+      "id": 1
+    },
+    {
+      "title": "Information Technology",
+      "id": 2
+    },
+    {
+      "title": "Sports",
+      "id": 3
+    }
+  ],
+  "specialisations": [
+    {
+      "title": "Endocrinology",
+      "fieldId": 1,
+      "id": 1
+    },
+    {
+      "title": "Cardiology",
+      "fieldId": 1,
+      "id": 2
+    },
+    {
+      "title": "Web Development",
+      "fieldId": 2,
+      "id": 3
+    },
+    {
+      "title": "Cyber Security",
+      "fieldId": 2,
+      "id": 4
+    },
+    {
+      "title": "Data Analytics",
+      "fieldId": 2,
+      "id": 5
+    },
+    {
+      "title": "Boxing",
+      "fieldId": 3,
+      "id": 6
+    },
+    {
+      "title": "Football",
+      "fieldId": 3,
+      "id": 7
+    },
+    {
+      "title": "Basketball",
+      "fieldId": 3,
+      "id": 8
+    }
+  ],
+  "occupations": [
+    {
+      "title": "Senior Endocrinologist",
+      "specialisationId": 1,
+      "id": 1
+    },
+    {
+      "title": "Laboratory Assistant",
+      "specialisationId": 1,
+      "id": 2
+    },
+    {
+      "title": "Heart Surgeon",
+      "specialisationId": 2,
+      "id": 3
+    },
+    {
+      "title": "Front-End Developer",
+      "specialisationId": 3,
+      "id": 4
+    },
+    {
+      "title": "Cyber Security Manager",
+      "specialisationId": 4,
+      "id": 5
+    },
+    {
+      "title": "Junior Data Analyst",
+      "specialisationId": 5,
+      "id": 6
+    },
+    {
+      "title": "Boxing Referee",
+      "specialisationId": 6,
+      "id": 7
+    },
+    {
+      "title": "Football Player",
+      "specialisationId": 7,
+      "id": 8
+    },
+    {
+      "title": "Basketball Player",
+      "specialisationId": 8,
+      "id": 9
+    },
+    {
+      "title": "Basketball Coach",
+      "specialisationId": 8,
+      "id": 10
+    }
+  ]
 }
