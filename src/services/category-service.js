@@ -11,8 +11,8 @@ const createField = ({ title }) => axios.post(`${API_URL}fields`, {
   title,
 });
 
-const createSpecialisation = ({ title, fieldId }) => axios.post(`${API_URL}specialisations`, {
-  title, fieldId,
+const createSpecialisation = ({ title, field }) => axios.post(`${API_URL}specialisations`, {
+  title, fieldId: field.id,
 });
 
 const createOccupation = ({ title, specialisationId }) => axios.post(`${API_URL}occupations`, {

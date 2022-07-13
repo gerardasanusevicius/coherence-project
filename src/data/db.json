@@ -167,6 +167,11 @@
       "title": "Basketball",
       "fieldId": 3,
       "id": 8
+    },
+    {
+      "title": "Golf",
+      "fieldId": 3,
+      "id": 9
     }
   ],
   "occupations": [
