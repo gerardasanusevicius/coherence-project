@@ -2,11 +2,14 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
 import {
-  Typography, Container, Paper, TextField, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, MenuItem,
+  Typography, Container, Paper, TextField, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, MenuItem, InputAdornment, IconButton,
 } from '@mui/material';
 
 import { useFormik, Formik, Form } from 'formik';
 import * as Yup from 'yup';
+
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../services/user-service';
@@ -59,6 +62,7 @@ const UserCreationPage = () => {
   const [fields, setFields] = useState([]);
   const [specialisations, setSpecialisations] = useState([]);
   const [occupations, setOccupations] = useState([]);
+  const [showHidePassword, changeShowHidePassword] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -104,6 +108,7 @@ const UserCreationPage = () => {
     field: '',
     specialisation: '',
     occupation: '',
+    showPassword: false,
   };
 
   const handleCreateUser = (firstName, lastName, password, email, age, gender, field, specialisation, occupation) => {
@@ -180,7 +185,7 @@ const UserCreationPage = () => {
             />
             <TextField
             name='password'
-            type="password"
+            type={showHidePassword ? 'text' : 'password'}
             label="Password"
             value={values.password}
             fullWidth
@@ -188,6 +193,16 @@ const UserCreationPage = () => {
             onBlur={handleBlur}
             error={touched.password && Boolean(errors.password)}
             helperText={touched.password && errors.password ? touched.password && errors.password : null}
+            InputProps={{
+              endAdornment:
+              <InputAdornment position="end">
+              <IconButton
+              onClick={() => changeShowHidePassword(!showHidePassword)}
+              >
+              {showHidePassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+              </InputAdornment>,
+            }}
             />
             <TextField
             name='email'

@@ -95,6 +95,18 @@
       "specialisation": "Data Analytics",
       "occupation": "Junior Data Analyst",
       "id": 8
+    },
+    {
+      "firstName": "Lukas",
+      "lastName": "Petrovskis",
+      "password": "LukPetr!12",
+      "email": "lukpetr@example.com",
+      "age": 21,
+      "gender": "other",
+      "field": "Sports",
+      "specialisation": "Boxing",
+      "occupation": "Boxing Referee",
+      "id": 9
     }
   ],
   "fields": [
