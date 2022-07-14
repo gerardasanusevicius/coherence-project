@@ -172,6 +172,11 @@
       "title": "Golf",
       "fieldId": 3,
       "id": 9
+    },
+    {
+      "title": "Photography",
+      "fieldId": 4,
+      "id": 10
     }
   ],
   "occupations": [
@@ -224,6 +229,21 @@
       "title": "Basketball Coach",
       "specialisationId": 8,
       "id": 10
+    },
+    {
+      "title": "Photographer",
+      "specialisationId": 10,
+      "id": 11
+    },
+    {
+      "title": "Golf Coach",
+      "specialisationId": 9,
+      "id": 12
+    },
+    {
+      "title": "Retoucher",
+      "specialisationId": 10,
+      "id": 13
     }
   ]
 }

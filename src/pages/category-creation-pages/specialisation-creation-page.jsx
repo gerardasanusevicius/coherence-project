@@ -39,7 +39,7 @@ const SpecialisationCreationPage = () => {
 
   const handleCreateSpecialisation = (title, field) => {
     createSpecialisation(title, field);
-    navigate('/');
+    navigate('/category-creation');
   };
 
   const {
@@ -102,7 +102,7 @@ const SpecialisationCreationPage = () => {
             <TextField
             name='title'
             type="text"
-            label="Field title"
+            label="Specialisation title"
             value={values.title}
             fullWidth
             onChange={handleChange}

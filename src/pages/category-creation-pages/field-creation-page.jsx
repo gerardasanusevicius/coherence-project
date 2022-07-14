@@ -24,7 +24,7 @@ const FieldCreationPage = () => {
 
   const handleCreateField = (title) => {
     createField(title);
-    navigate('/');
+    navigate('/category-creation');
   };
 
   const {
