@@ -5,9 +5,13 @@ import {
   Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,
 } from '@mui/material';
 import { getUsers } from '../../services/user-service';
+import { getFields, getOccupations, getSpecialisations } from '../../services/category-service';
 
 const FilteredUsersPage = () => {
   const [users, setUsers] = useState([]);
+  const [fields, setFields] = useState([]);
+  const [specialisations, setSpecialisations] = useState([]);
+  const [occupations, setOccupations] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
@@ -21,12 +25,57 @@ const FilteredUsersPage = () => {
     );
   }, []);
 
-  const titleCase = (s) => s.replace(/^[-_]*(.)/, (_, c) => c.toUpperCase()) // Initial char (after -/_)
-    .replace(/[-_]+(.)/g, (_, c) => ` ${c.toUpperCase()}`); // First char after each -/_
+  useEffect(() => {
+    getFields().then(
+      (res) => {
+        setFields(res.data);
+      },
+      (error) => {
+        throw error;
+      },
+    );
+  }, []);
+
+  useEffect(() => {
+    getSpecialisations().then(
+      (res) => {
+        setSpecialisations(res.data);
+      },
+      (error) => {
+        throw error;
+      },
+    );
+  }, []);
+
+  useEffect(() => {
+    getOccupations().then(
+      (res) => {
+        setOccupations(res.data);
+      },
+      (error) => {
+        throw error;
+      },
+    );
+  }, []);
+
+  const titleCase = (s) => s.replace(/^[-_]*(.)/, (_, c) => c.toUpperCase())
+    .replace(/[-_]+(.)/g, (_, c) => ` ${c.toUpperCase()}`);
 
   const titleCasedId = titleCase(id);
 
-  const filteredUsers = users.filter((user) => user.field === titleCasedId);
+  const testFields = fields.some((field) => field.title === titleCasedId);
+  const testSpecialisations = specialisations.some((specialisation) => specialisation.title === titleCasedId);
+  const testOccupations = occupations.some((occupation) => occupation.title === titleCasedId);
+
+  let filteredUsers = [];
+
+  if (testFields) {
+    filteredUsers = users.filter((user) => user.field === titleCasedId);
+  } else if (testSpecialisations) {
+    filteredUsers = users.filter((user) => user.specialisation === titleCasedId);
+  } else if (testOccupations) {
+    filteredUsers = users.filter((user) => user.occupation === titleCasedId);
+  }
 
   return (
     <>
