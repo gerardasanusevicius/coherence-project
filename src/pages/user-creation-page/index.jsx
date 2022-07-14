@@ -19,12 +19,14 @@ const validationSchema = Yup.object({
   firstName: Yup.string()
     .required('Required field')
     .min(1, 'At least one character required')
-    .max(64, '64 characters at most'),
+    .max(64, '64 characters at most')
+    .matches(/^[aA-zZ\s]+$/, 'Please only use Latin alphabet and spacing'),
 
   lastName: Yup.string()
     .required('Required field')
     .min(1, 'At least one character required')
-    .max(64, '64 characters at most'),
+    .max(64, '64 characters at most')
+    .matches(/^[aA-zZ\s]+$/, 'Please only use Latin alphabet and spacing'),
 
   password: Yup.string()
     .required('Required field')

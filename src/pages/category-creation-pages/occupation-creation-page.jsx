@@ -12,9 +12,12 @@ const validationSchema = Yup.object({
   title: Yup.string()
     .required('Required field')
     .min(2, 'At least two characters required')
-    .max(32, '32 characters at most'),
+    .max(32, '32 characters at most')
+    .matches(/^[aA-zZ\s]+$/, 'Please only use Latin alphabet and spacing'),
+
   field: Yup.object()
     .required('Required field'),
+
   specialisation: Yup.object()
     .required('Required field'),
 });
