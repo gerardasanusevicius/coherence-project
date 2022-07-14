@@ -19,7 +19,6 @@ import { getFields, getOccupations, getSpecialisations } from '../../services/ca
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [fieldsOpen, setFieldsOpen] = useState(false);
-  // const [specialisationsOpen, setSpecialisationsOpen] = useState(false);
   const [fields, setFields] = useState([]);
   const [specialisations, setSpecialisations] = useState([]);
   const [occupations, setOccupations] = useState([]);
