@@ -9,7 +9,7 @@ import HomePage from './pages/home-page/index.jsx';
 import FieldCreationPage from './pages/category-creation-pages/field-creation-page.jsx';
 import SpecialisationCreationPage from './pages/category-creation-pages/specialisation-creation-page.jsx';
 import OccupationCreationPage from './pages/category-creation-pages/occupation-creation-page.jsx';
-import FilteredUsersPage from './pages/filtered-users-page/index';
+import FilteredUsersPage from './pages/filtered-users-page/index.jsx';
 
 const App = () => (
       <Routes>
