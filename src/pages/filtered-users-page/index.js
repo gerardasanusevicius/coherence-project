@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import { getUsers } from '../../services/user-service';
 
-const FilteredByFieldUsersPage = () => {
+const FilteredUsersPage = () => {
   const [users, setUsers] = useState([]);
   const { id } = useParams();
 
@@ -26,7 +26,7 @@ const FilteredByFieldUsersPage = () => {
 
   const titleCasedId = titleCase(id);
 
-  const filteredByFieldUsers = users.filter((user) => user.field === titleCasedId);
+  const filteredUsers = users.filter((user) => user.field === titleCasedId);
 
   return (
     <>
@@ -54,7 +54,7 @@ const FilteredByFieldUsersPage = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {filteredByFieldUsers.map((user) => (
+          {filteredUsers.map((user) => (
             <TableRow
               key={user.id}
             >
@@ -88,4 +88,4 @@ const FilteredByFieldUsersPage = () => {
   );
 };
 
-export default FilteredByFieldUsersPage;
+export default FilteredUsersPage;

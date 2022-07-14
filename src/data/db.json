@@ -107,6 +107,18 @@
       "specialisation": "Boxing",
       "occupation": "Boxing Referee",
       "id": 9
+    },
+    {
+      "firstName": "Romualda",
+      "lastName": "Bebrytė",
+      "password": "RomBebr!12",
+      "email": "rombebr@example.com",
+      "age": 23,
+      "gender": "female",
+      "field": "Arts",
+      "specialisation": "Photography",
+      "occupation": "Photographer",
+      "id": 10
     }
   ],
   "fields": [
