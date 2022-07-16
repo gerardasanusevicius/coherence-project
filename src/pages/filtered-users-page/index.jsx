@@ -1,61 +1,31 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,
 } from '@mui/material';
-import { getUsers } from '../../services/user-service';
-import { getFields, getOccupations, getSpecialisations } from '../../services/category-service';
+import {
+  selectFields, selectOccupations, selectSpecialisations, selectUsers,
+} from '../../store/selectors';
+import { fetchUsersThunkAction } from '../../store/features/users/users-action-creators';
+import { fetchFieldsThunkAction } from '../../store/features/fields/fields-action-creators';
+import { fetchSpecialisationsThunkAction } from '../../store/features/specialisations/specialisations-action-creators';
+import { fetchOccupationsThunkAction } from '../../store/features/occupations/occupations-action-creators';
+import { useRootDispatch, useRootSelector } from '../../store/hooks';
 
 const FilteredUsersPage = () => {
-  const [users, setUsers] = useState([]);
-  const [fields, setFields] = useState([]);
-  const [specialisations, setSpecialisations] = useState([]);
-  const [occupations, setOccupations] = useState([]);
+  const users = useRootSelector(selectUsers);
+  const fields = useRootSelector(selectFields);
+  const specialisations = useRootSelector(selectSpecialisations);
+  const occupations = useRootSelector(selectOccupations);
+  const dispatch = useRootDispatch();
   const { id } = useParams();
 
   useEffect(() => {
-    getUsers().then(
-      (res) => {
-        setUsers(res.data);
-      },
-      (error) => {
-        throw error;
-      },
-    );
-  }, []);
-
-  useEffect(() => {
-    getFields().then(
-      (res) => {
-        setFields(res.data);
-      },
-      (error) => {
-        throw error;
-      },
-    );
-  }, []);
-
-  useEffect(() => {
-    getSpecialisations().then(
-      (res) => {
-        setSpecialisations(res.data);
-      },
-      (error) => {
-        throw error;
-      },
-    );
-  }, []);
-
-  useEffect(() => {
-    getOccupations().then(
-      (res) => {
-        setOccupations(res.data);
-      },
-      (error) => {
-        throw error;
-      },
-    );
+    dispatch(fetchUsersThunkAction);
+    dispatch(fetchFieldsThunkAction);
+    dispatch(fetchSpecialisationsThunkAction);
+    dispatch(fetchOccupationsThunkAction);
   }, []);
 
   const titleCase = (s) => s.replace(/^[-_]*(.)/, (_, c) => c.toUpperCase())

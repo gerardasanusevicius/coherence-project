@@ -1,12 +1,15 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Typography, Container, Paper, TextField, Button, MenuItem,
 } from '@mui/material';
 import { useFormik, Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { createSpecialisation, getFields } from '../../services/category-service';
+import { createSpecialisationAction } from '../../store/features/specialisations/specialisations-action-creators';
+import { useRootDispatch, useRootSelector } from '../../store/hooks';
+import { selectFields } from '../../store/selectors';
+import { fetchFieldsThunkAction } from '../../store/features/fields/fields-action-creators';
 
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -20,18 +23,12 @@ const validationSchema = Yup.object({
 });
 
 const SpecialisationCreationPage = () => {
-  const [fields, setFields] = useState([]);
+  const fields = useRootSelector(selectFields);
   const navigate = useNavigate();
+  const dispatch = useRootDispatch();
 
   useEffect(() => {
-    getFields().then(
-      (res) => {
-        setFields(res.data);
-      },
-      (error) => {
-        throw error;
-      },
-    );
+    dispatch(fetchFieldsThunkAction);
   }, []);
 
   const initialValues = {
@@ -40,7 +37,8 @@ const SpecialisationCreationPage = () => {
   };
 
   const handleCreateSpecialisation = (title, field) => {
-    createSpecialisation(title, field);
+    const createSpecialisation = createSpecialisationAction(title, field);
+    dispatch(createSpecialisation);
     navigate('/category-creation');
   };
 
@@ -98,7 +96,9 @@ const SpecialisationCreationPage = () => {
             defaultValue=""
             >
               {
-                fields.map((field) => <MenuItem key={field.id} value={field}>{field.title}</MenuItem>)
+                (fields)
+                  ? fields.map((field) => <MenuItem key={field.id} value={field}>{field.title}</MenuItem>)
+                  : <Typography>loading...</Typography>
               }
             </TextField>
             <TextField

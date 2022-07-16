@@ -6,7 +6,8 @@ import {
 import { useFormik, Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { createField } from '../../services/category-service';
+import { useDispatch } from 'react-redux';
+import { createFieldAction } from '../../store/features/fields/fields-action-creators';
 
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -18,13 +19,15 @@ const validationSchema = Yup.object({
 
 const FieldCreationPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const initialValues = {
     title: '',
   };
 
   const handleCreateField = (title) => {
-    createField(title);
+    const createField = createFieldAction(title);
+    dispatch(createField);
     navigate('/category-creation');
   };
 

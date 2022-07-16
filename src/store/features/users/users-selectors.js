@@ -1,3 +1,3 @@
 // @ts-nocheck
 /* eslint-disable import/prefer-default-export */
-export const selectUsers = (state) => state.users.users;
+export const selectUsers = (state) => state.usersStore.users;

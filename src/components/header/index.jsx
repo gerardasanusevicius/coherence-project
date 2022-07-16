@@ -13,47 +13,25 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
+import { useRootDispatch, useRootSelector } from '../../store/hooks';
+import { selectFields, selectOccupations, selectSpecialisations } from '../../store/selectors';
+import { fetchFieldsThunkAction } from '../../store/features/fields/fields-action-creators';
+import { fetchSpecialisationsThunkAction } from '../../store/features/specialisations/specialisations-action-creators';
+import { fetchOccupationsThunkAction } from '../../store/features/occupations/occupations-action-creators';
 import NavigationLink from '../navigation-link';
-import { getFields, getOccupations, getSpecialisations } from '../../services/category-service';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [fieldsOpen, setFieldsOpen] = useState(false);
-  const [fields, setFields] = useState([]);
-  const [specialisations, setSpecialisations] = useState([]);
-  const [occupations, setOccupations] = useState([]);
+  const fields = useRootSelector(selectFields);
+  const specialisations = useRootSelector(selectSpecialisations);
+  const occupations = useRootSelector(selectOccupations);
+  const dispatch = useRootDispatch();
 
   useEffect(() => {
-    getFields().then(
-      (res) => {
-        setFields(res.data);
-      },
-      (error) => {
-        throw error;
-      },
-    );
-  }, []);
-
-  useEffect(() => {
-    getSpecialisations().then(
-      (res) => {
-        setSpecialisations(res.data);
-      },
-      (error) => {
-        throw error;
-      },
-    );
-  }, []);
-
-  useEffect(() => {
-    getOccupations().then(
-      (res) => {
-        setOccupations(res.data);
-      },
-      (error) => {
-        throw error;
-      },
-    );
+    dispatch(fetchFieldsThunkAction);
+    dispatch(fetchSpecialisationsThunkAction);
+    dispatch(fetchOccupationsThunkAction);
   }, []);
 
   const kebabCase = (string) => string
@@ -79,7 +57,8 @@ const Header = () => {
           <NavigationLink sx={{ fontSize: '2rem' }}to="/category-creation">Category creation</NavigationLink>
           <Typography sx={{ textAlign: 'center', fontSize: '1.5rem', my: '1rem' }}>Filter by</Typography>
           {
-              fields.map((field) => (
+            (fields && specialisations && occupations)
+              ? fields.map((field) => (
               <Box key={field.id}>
               <NavigationLink to={`/${kebabCase(field.title)}`} sx={{ fontSize: '2rem' }}>{field.title}</NavigationLink>
               <IconButton
@@ -108,7 +87,7 @@ const Header = () => {
               </Box>
               </Collapse>
               </Box>
-              ))
+              )) : null
           }
           </Drawer>
           <IconButton

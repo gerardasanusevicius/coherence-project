@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import MainLayout from './components/layouts/main-layout.jsx';
 import './app.css';
 
@@ -10,8 +11,10 @@ import FieldCreationPage from './pages/category-creation-pages/field-creation-pa
 import SpecialisationCreationPage from './pages/category-creation-pages/specialisation-creation-page.jsx';
 import OccupationCreationPage from './pages/category-creation-pages/occupation-creation-page.jsx';
 import FilteredUsersPage from './pages/filtered-users-page/index.jsx';
+import store from './store/index';
 
 const App = () => (
+  <Provider store={store}>
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
@@ -23,5 +26,6 @@ const App = () => (
           <Route path="/occupation-creation" element={<OccupationCreationPage />} />
         </Route>
       </Routes>
+      </Provider>
 );
 export default App;

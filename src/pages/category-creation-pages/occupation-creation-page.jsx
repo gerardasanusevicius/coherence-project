@@ -1,12 +1,16 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Typography, Container, Paper, TextField, Button, MenuItem,
 } from '@mui/material';
 import { useFormik, Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { createOccupation, getFields, getSpecialisations } from '../../services/category-service';
+import { selectFields, selectSpecialisations } from '../../store/selectors';
+import { useRootDispatch, useRootSelector } from '../../store/hooks';
+import { fetchFieldsThunkAction } from '../../store/features/fields/fields-action-creators';
+import { fetchSpecialisationsThunkAction } from '../../store/features/specialisations/specialisations-action-creators';
+import { createOccupationAction } from '../../store/features/occupations/occupations-action-creators';
 
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -23,30 +27,14 @@ const validationSchema = Yup.object({
 });
 
 const OccupationCreationPage = () => {
-  const [fields, setFields] = useState([]);
-  const [specialisations, setSpecialisations] = useState([]);
+  const fields = useRootSelector(selectFields);
+  const specialisations = useRootSelector(selectSpecialisations);
   const navigate = useNavigate();
+  const dispatch = useRootDispatch();
 
   useEffect(() => {
-    getFields().then(
-      (res) => {
-        setFields(res.data);
-      },
-      (error) => {
-        throw error;
-      },
-    );
-  }, []);
-
-  useEffect(() => {
-    getSpecialisations().then(
-      (res) => {
-        setSpecialisations(res.data);
-      },
-      (error) => {
-        throw error;
-      },
-    );
+    dispatch(fetchFieldsThunkAction);
+    dispatch(fetchSpecialisationsThunkAction);
   }, []);
 
   const initialValues = {
@@ -56,7 +44,8 @@ const OccupationCreationPage = () => {
   };
 
   const handleCreateOccupation = (title, specialisation) => {
-    createOccupation(title, specialisation);
+    const createOccupation = createOccupationAction(title, specialisation);
+    dispatch(createOccupation);
     navigate('/category-creation');
   };
 
@@ -114,7 +103,8 @@ const OccupationCreationPage = () => {
             defaultValue=""
             >
               {
-                fields.map((field) => <MenuItem key={field.id} value={field}>{field.title}</MenuItem>)
+                (fields)
+                  ? fields.map((field) => <MenuItem key={field.id} value={field}>{field.title}</MenuItem>) : null
               }
             </TextField>
             <TextField

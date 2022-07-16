@@ -12,8 +12,12 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { useNavigate } from 'react-router-dom';
-import { createUser } from '../../services/user-service';
-import { getFields, getOccupations, getSpecialisations } from '../../services/category-service';
+import { selectFields, selectOccupations, selectSpecialisations } from '../../store/selectors';
+import { fetchOccupationsThunkAction } from '../../store/features/occupations/occupations-action-creators';
+import { fetchFieldsThunkAction } from '../../store/features/fields/fields-action-creators';
+import { fetchSpecialisationsThunkAction } from '../../store/features/specialisations/specialisations-action-creators';
+import { useRootDispatch, useRootSelector } from '../../store/hooks';
+import { createUserAction } from '../../store/features/users/users-action-creators';
 
 const validationSchema = Yup.object({
   firstName: Yup.string()
@@ -61,43 +65,17 @@ const validationSchema = Yup.object({
 });
 
 const UserCreationPage = () => {
-  const [fields, setFields] = useState([]);
-  const [specialisations, setSpecialisations] = useState([]);
-  const [occupations, setOccupations] = useState([]);
+  const fields = useRootSelector(selectFields);
+  const specialisations = useRootSelector(selectSpecialisations);
+  const occupations = useRootSelector(selectOccupations);
   const [showHidePassword, changeShowHidePassword] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useRootDispatch();
 
   useEffect(() => {
-    getFields().then(
-      (res) => {
-        setFields(res.data);
-      },
-      (error) => {
-        throw error;
-      },
-    );
-  }, []);
-
-  useEffect(() => {
-    getSpecialisations().then(
-      (res) => {
-        setSpecialisations(res.data);
-      },
-      (error) => {
-        throw error;
-      },
-    );
-  }, []);
-
-  useEffect(() => {
-    getOccupations().then(
-      (res) => {
-        setOccupations(res.data);
-      },
-      (error) => {
-        throw error;
-      },
-    );
+    dispatch(fetchFieldsThunkAction);
+    dispatch(fetchSpecialisationsThunkAction);
+    dispatch(fetchOccupationsThunkAction);
   }, []);
 
   const initialValues = {
@@ -114,7 +92,8 @@ const UserCreationPage = () => {
   };
 
   const handleCreateUser = (firstName, lastName, password, email, age, gender, field, specialisation, occupation) => {
-    createUser(firstName, lastName, password, email, age, gender, field, specialisation, occupation);
+    const createUser = createUserAction(firstName, lastName, password, email, age, gender, field, specialisation, occupation);
+    dispatch(createUser);
     navigate('/');
   };
 
@@ -247,7 +226,8 @@ const UserCreationPage = () => {
             defaultValue=""
             >
               {
-                fields.map((field) => <MenuItem key={field.id} value={field}>{field.title}</MenuItem>)
+                (fields)
+                  ? fields.map((field) => <MenuItem key={field.id} value={field}>{field.title}</MenuItem>) : null
               }
             </TextField>
             <TextField

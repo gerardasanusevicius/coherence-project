@@ -1,21 +1,18 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,
 } from '@mui/material';
-import { getUsers } from '../../services/user-service';
+import { useRootDispatch, useRootSelector } from '../../store/hooks';
+import { selectUsers } from '../../store/selectors';
+import { fetchUsersThunkAction } from '../../store/features/users/users-action-creators';
 
 const HomePage = () => {
-  const [users, setUsers] = useState([]);
+  const users = useRootSelector(selectUsers);
+  const dispatch = useRootDispatch();
+
   useEffect(() => {
-    getUsers().then(
-      (res) => {
-        setUsers(res.data);
-      },
-      (error) => {
-        throw error;
-      },
-    );
+    dispatch(fetchUsersThunkAction);
   }, []);
 
   return (
@@ -44,7 +41,8 @@ const HomePage = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {users.map((user) => (
+          { (users)
+            ? users.map((user) => (
             <TableRow
               key={user.id}
             >
@@ -69,7 +67,8 @@ const HomePage = () => {
               <TableCell align="right">{user
                 .occupation}</TableCell>
             </TableRow>
-          ))}
+            )) : null
+        }
         </TableBody>
       </Table>
     </TableContainer>
