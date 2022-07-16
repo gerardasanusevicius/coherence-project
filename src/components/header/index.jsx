@@ -23,6 +23,7 @@ import NavigationLink from '../navigation-link';
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [fieldsOpen, setFieldsOpen] = useState(false);
+  const [specialisationsOpen, setSpecialisationsOpen] = useState(false);
   const fields = useRootSelector(selectFields);
   const specialisations = useRootSelector(selectSpecialisations);
   const occupations = useRootSelector(selectOccupations);
@@ -52,7 +53,9 @@ const Header = () => {
       <Toolbar
         disableGutters
       >
-        <Drawer open={menuOpen} onClose={() => setMenuOpen(false)} sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Drawer open={menuOpen} onClose={() => setMenuOpen(false)} sx={{
+          display: 'flex', flexDirection: 'column',
+        }}>
           <NavigationLink sx={{
             fontSize: { xs: '1rem', md: '1.25rem', lg: '1.5rem' },
           }} to="/user-creation" onClick={() => setMenuOpen(false)}>User creation</NavigationLink>
@@ -85,12 +88,25 @@ const Header = () => {
                   <NavigationLink to={`/${kebabCase(specialisation.title)}`} sx={{
                     fontSize: { xs: '0.75rem', md: '1rem', lg: '1rem' },
                   }} onClick={() => setMenuOpen(false)}>{specialisation.title}</NavigationLink>
+                  <IconButton
+            size="large"
+            edge="start"
+            sx={{ mr: 2 }}
+            onClick={() => {
+              setSpecialisationsOpen((prev) => !prev);
+            }}
+          >
+          <ArrowDropDownIcon/>
+          </IconButton>
+              <Collapse in={specialisationsOpen}>
+              <Box>
                   {
                    occupations.filter((occupation) => occupation.specialisationId === specialisation.id).map((occupation) => <NavigationLink to={`/${kebabCase(occupation.title)}`} key={occupation.id} value={occupation} sx={{
                      fontSize: { xs: '0.5rem', md: '0.75rem', lg: '0.75rem' },
                    }} onClick={() => setMenuOpen(false)}>{occupation.title}</NavigationLink>)
               }
-
+              </Box>
+              </Collapse>
                   </Box>
                    ))
               }
