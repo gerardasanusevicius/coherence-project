@@ -37,7 +37,10 @@ const Footer = () => {
     }}
   >
     <NavigationLink to='/' sx={{ mr: 0 }}>Home Page</NavigationLink>
-    <Button sx={{ maXwidth: '100%', height: '2rem' }} variant='outlined' onClick={exportData} >Export JSON Data</Button>
+    <Button sx={{
+      maxWidth: '100%',
+      fontSize: { xs: '0.75rem', md: '1rem' },
+    }} variant='outlined' onClick={exportData} >Export JSON Data</Button>
   </Box>
   );
 };

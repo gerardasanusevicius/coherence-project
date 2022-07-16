@@ -53,14 +53,20 @@ const Header = () => {
         disableGutters
       >
         <Drawer open={menuOpen} onClose={() => setMenuOpen(false)} sx={{ display: 'flex', flexDirection: 'column' }}>
-          <NavigationLink sx={{ fontSize: '2rem' }} to="/user-creation">User creation</NavigationLink>
-          <NavigationLink sx={{ fontSize: '2rem' }}to="/category-creation">Category creation</NavigationLink>
+          <NavigationLink sx={{
+            fontSize: { xs: '1rem', md: '1.25rem', lg: '1.5rem' },
+          }} to="/user-creation">User creation</NavigationLink>
+          <NavigationLink sx={{
+            fontSize: { xs: '1rem', md: '1.25rem', lg: '1.5rem' },
+          }}to="/category-creation">Category creation</NavigationLink>
           <Typography sx={{ textAlign: 'center', fontSize: '1.5rem', my: '1rem' }}>Filter by</Typography>
           {
             (fields && specialisations && occupations)
               ? fields.map((field) => (
               <Box key={field.id}>
-              <NavigationLink to={`/${kebabCase(field.title)}`} sx={{ fontSize: '2rem' }}>{field.title}</NavigationLink>
+              <NavigationLink to={`/${kebabCase(field.title)}`} sx={{
+                fontSize: { xs: '1rem', md: '1.25rem', lg: '1.5rem' },
+              }}>{field.title}</NavigationLink>
               <IconButton
             size="large"
             edge="start"
@@ -76,9 +82,13 @@ const Header = () => {
               {
                    specialisations.filter((specialisation) => specialisation.fieldId === field.id).map((specialisation) => (
                     <Box key={specialisation.id}>
-                  <NavigationLink to={`/${kebabCase(specialisation.title)}`} sx={{ fontSize: '1.5rem' }}>{specialisation.title}</NavigationLink>
+                  <NavigationLink to={`/${kebabCase(specialisation.title)}`} sx={{
+                    fontSize: { xs: '0.75rem', md: '1rem', lg: '1rem' },
+                  }}>{specialisation.title}</NavigationLink>
                   {
-                   occupations.filter((occupation) => occupation.specialisationId === specialisation.id).map((occupation) => <NavigationLink to={`/${kebabCase(occupation.title)}`} key={occupation.id} value={occupation} sx={{ fontSize: '1rem' }}>{occupation.title}</NavigationLink>)
+                   occupations.filter((occupation) => occupation.specialisationId === specialisation.id).map((occupation) => <NavigationLink to={`/${kebabCase(occupation.title)}`} key={occupation.id} value={occupation} sx={{
+                     fontSize: { xs: '0.5rem', md: '0.75rem', lg: '0.75rem' },
+                   }}>{occupation.title}</NavigationLink>)
               }
 
                   </Box>
