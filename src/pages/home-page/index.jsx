@@ -11,7 +11,7 @@ import { fetchUsersThunkAction } from '../../store/features/users/users-action-c
 const HomePage = () => {
   const users = useRootSelector(selectUsers);
   const dispatch = useRootDispatch();
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
