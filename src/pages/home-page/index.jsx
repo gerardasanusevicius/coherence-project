@@ -1,8 +1,9 @@
 // @ts-nocheck
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,
 } from '@mui/material';
+import TablePagination from '@mui/material/TablePagination';
 import { useRootDispatch, useRootSelector } from '../../store/hooks';
 import { selectUsers } from '../../store/selectors';
 import { fetchUsersThunkAction } from '../../store/features/users/users-action-creators';
@@ -10,10 +11,21 @@ import { fetchUsersThunkAction } from '../../store/features/users/users-action-c
 const HomePage = () => {
   const users = useRootSelector(selectUsers);
   const dispatch = useRootDispatch();
+  const [page, setPage] = useState(2);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     dispatch(fetchUsersThunkAction);
   }, []);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   return (
     <>
@@ -41,8 +53,9 @@ const HomePage = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          { (users)
-            ? users.map((user) => (
+            { (users)
+              ? (rowsPerPage > 0
+                ? users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : users).map((user) => (
             <TableRow
               key={user.id}
             >
@@ -67,10 +80,18 @@ const HomePage = () => {
               <TableCell align="right">{user
                 .occupation}</TableCell>
             </TableRow>
-            )) : null
+              )) : null
         }
         </TableBody>
       </Table>
+      <TablePagination
+      component="div"
+      count={users.length}
+      page={page}
+      onPageChange={handleChangePage}
+      rowsPerPage={rowsPerPage}
+      onRowsPerPageChange={handleChangeRowsPerPage}
+    />
     </TableContainer>
     </Container>
     </>
