@@ -143,6 +143,18 @@
       "specialisation": "Cardiology",
       "occupation": "Heart Surgeon",
       "id": 12
+    },
+    {
+      "firstName": "Andrius",
+      "lastName": "Ramonas",
+      "password": "AndRam!12",
+      "email": "andram@example.com",
+      "age": 66,
+      "gender": "male",
+      "field": "Life Science",
+      "specialisation": "Cardiology",
+      "occupation": "Heart Surgeon",
+      "id": 13
     }
   ],
   "fields": [
